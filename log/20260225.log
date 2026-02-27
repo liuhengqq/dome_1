@@ -1,0 +1,406 @@
+[2026-02-25 16:32:26,628][read_data.py 35][INFO]: 加载 C:\Users\dreame\Downloads\pytestDemo-master (1)\pytestDemo-master\config\setting.ini 文件......
+[2026-02-25 16:32:26,701][read_data.py 35][INFO]: 加载 C:\Users\dreame\Downloads\pytestDemo-master (1)\pytestDemo-master\config\setting.ini 文件......
+[2026-02-25 16:32:26,731][read_data.py 21][INFO]: 加载 C:\Users\dreame\Downloads\pytestDemo-master (1)\pytestDemo-master\data\base_data.yml 文件......
+[2026-02-25 16:32:26,733][read_data.py 24][INFO]: 读到数据 ==>>  {'init_admin_user': {'username': 'wintest', 'password': '123456'}, 'init_sql': {'insert_delete_user': ["INSERT INTO user(username, password, role, sex, telephone, address) VALUES('测试test', '123456', '1', '1', '13488888888', '北京市海淀区')", "DELETE FROM user WHERE username = '测试test'"], 'delete_register_user': "DELETE FROM user WHERE username = '测试test'", 'update_user_telephone': "UPDATE user SET telephone = '13500010004' WHERE id = 4"}} 
+[2026-02-25 16:32:26,734][read_data.py 21][INFO]: 加载 C:\Users\dreame\Downloads\pytestDemo-master (1)\pytestDemo-master\data\api_test_data.yml 文件......
+[2026-02-25 16:32:26,737][read_data.py 24][INFO]: 读到数据 ==>>  {'test_get_all_user_info': [[True, 0, '查询成功']], 'test_get_get_one_user_info': [['wintest4', True, 0, '查询成功'], ['wintest1111', False, '1004', '查不到相关用户']], 'test_register_user': [['测试test', '123456', '13599999999', '1', '深圳市宝安区', True, 0, '注册成功'], ['测试test', '123456', '13599999999', '3', '深圳市宝安区', False, 2003, '输入的性别只能是 0(男) 或 1(女)'], ['wintest4', '123456', '13599999999', '1', '深圳市宝安区', False, 2002, '用户名已存在']], 'test_login_user': [['wintest', '123456', True, 0, '登录成功'], ['测试test', '123456', False, 1003, '用户名不存在']], 'test_update_user': [[4, '123456', '13500010014', '1', '深圳市宝安区', True, 0, '修改用户信息成功'], [4, '123456', '1350001001', '1', '深圳市宝安区', False, 4008, '手机号格式不正确'], [111, '123456', '13500010014', '1', '深圳市宝安区', False, 4005, '用户ID不存在']], 'test_delete_user': [['测试test', True, 0, '删除用户信息成功'], ['wintest3', False, 3006, '该用户不允许删除']]} 
+[2026-02-25 16:32:26,737][read_data.py 21][INFO]: 加载 C:\Users\dreame\Downloads\pytestDemo-master (1)\pytestDemo-master\data\scenario_test_data.yml 文件......
+[2026-02-25 16:32:26,740][read_data.py 24][INFO]: 读到数据 ==>>  {'test_user_register_login_list': {'username': '测试test', 'password': '123456', 'telephone': '13599999999', 'sex': '1', 'address': '深圳市宝安区', 'except_result': True, 'except_code': 0, 'except_msg': '查询成功'}, 'test_user_repeat_register': {'username': '测试test', 'password': '123456', 'telephone': '13599999999', 'sex': '1', 'address': '深圳市宝安区', 'except_result': False, 'except_code': 2002, 'except_msg': '用户名已存在，注册失败'}, 'test_user_register_login_update_success': {'register': {'username': '测试test', 'password': '123456', 'telephone': '13599999999', 'sex': '1', 'address': '深圳市宝安区'}, 'login': {'admin_user': 'wintest', 'admin_pwd': '123456'}, 'update': {'new_password': '123456', 'new_telephone': '13599999998', 'new_sex': '1', 'new_address': '深圳市坪山区'}, 'except_result': True, 'except_code': 0, 'except_msg': '修改用户信息成功'}, 'test_user_register_login_update_fail': {'register': {'username': '测试test', 'password': '123456', 'telephone': '13599999999', 'sex': '1', 'address': '深圳市宝安区'}, 'login': {'admin_user': 'wintest', 'admin_pwd': '123456'}, 'update': {'new_password': '123456', 'new_telephone': '13599999998', 'new_sex': '1', 'new_address': '深圳市坪山区'}, 'except_result': False, 'except_code': 4005, 'except_msg': '修改的用户ID不存在'}, 'test_user_register_login_delete_success': {'admin_user': 'wintest', 'admin_pwd': '123456', 'username': '测试test', 'password': '123456', 'telephone': '13599999999', 'sex': '1', 'address': '深圳市宝安区', 'except_result': True, 'except_code': 0, 'except_msg': '删除用户信息成功'}, 'test_user_register_login_delete_fail': {'admin_user': 'wintest4', 'admin_pwd': '123456', 'username': '测试test', 'password': '123456', 'telephone': '13599999999', 'sex': '1', 'address': '深圳市宝安区', 'except_result': False, 'except_code': 3004, 'except_msg': '当前用户不是管理员用户'}} 
+[2026-02-25 16:32:26,883][test_01_get_user_info.py 32][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:26,883][test_01_get_user_info.py 10][INFO]: 步骤1 ==>> 获取所有用户信息
+[2026-02-25 16:32:26,884][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/users
+[2026-02-25 16:32:26,884][rest_client.py 52][INFO]: 接口请求方式 ==>> GET
+[2026-02-25 16:32:26,884][rest_client.py 54][INFO]: 接口请求头 ==>> null
+[2026-02-25 16:32:26,884][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:26,884][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:26,884][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> null
+[2026-02-25 16:32:26,884][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:26,884][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:26,903][test_01_get_user_info.py 38][INFO]: code ==>> 期望结果：0， 实际结果：0
+[2026-02-25 16:32:26,903][test_01_get_user_info.py 41][INFO]: *************** 结束执行用例 ***************
+[2026-02-25 16:32:26,911][test_01_get_user_info.py 52][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:26,911][test_01_get_user_info.py 15][INFO]: 步骤1 ==>> 获取某个用户信息：wintest4
+[2026-02-25 16:32:26,911][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/users/wintest4
+[2026-02-25 16:32:26,911][rest_client.py 52][INFO]: 接口请求方式 ==>> GET
+[2026-02-25 16:32:26,911][rest_client.py 54][INFO]: 接口请求头 ==>> null
+[2026-02-25 16:32:26,911][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:26,911][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:26,911][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> null
+[2026-02-25 16:32:26,911][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:26,911][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:26,930][user.py 38][INFO]: 查看单个用户 ==>> 返回结果 ==>> {
+  "code": "1004", 
+  "msg": "查不到相关用户的信息"
+}
+
+[2026-02-25 16:32:27,377][test_01_get_user_info.py 52][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,377][test_01_get_user_info.py 15][INFO]: 步骤1 ==>> 获取某个用户信息：wintest1111
+[2026-02-25 16:32:27,377][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/users/wintest1111
+[2026-02-25 16:32:27,377][rest_client.py 52][INFO]: 接口请求方式 ==>> GET
+[2026-02-25 16:32:27,377][rest_client.py 54][INFO]: 接口请求头 ==>> null
+[2026-02-25 16:32:27,377][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,377][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,378][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> null
+[2026-02-25 16:32:27,378][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,378][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,395][user.py 38][INFO]: 查看单个用户 ==>> 返回结果 ==>> {
+  "code": "1004", 
+  "msg": "查不到相关用户的信息"
+}
+
+[2026-02-25 16:32:27,395][test_01_get_user_info.py 58][INFO]: code ==>> 期望结果：1004， 实际结果：【 1004 】
+[2026-02-25 16:32:27,395][test_01_get_user_info.py 61][INFO]: *************** 结束执行用例 ***************
+[2026-02-25 16:32:27,404][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,404][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,404][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,404][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,405][test_02_register.py 30][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,405][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,405][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,406][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,406][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,406][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,406][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,406][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,406][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,429][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 0, 
+  "msg": "恭喜，注册成功！"
+}
+
+[2026-02-25 16:32:27,429][test_02_register.py 10][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,429][test_02_register.py 36][INFO]: code ==>> 期望结果：0， 实际结果：【 0 】
+[2026-02-25 16:32:27,429][test_02_register.py 39][INFO]: *************** 结束执行用例 ***************
+[2026-02-25 16:32:27,437][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,437][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,437][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,441][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,442][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,442][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,442][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,442][test_02_register.py 30][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,442][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,443][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,443][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,443][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,443][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,443][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "3",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,443][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,443][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,463][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2003, 
+  "msg": "输入的性别只能是 0(男) 或 1(女)！！！"
+}
+
+[2026-02-25 16:32:27,463][test_02_register.py 10][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 3, 深圳市宝安区
+[2026-02-25 16:32:27,463][test_02_register.py 36][INFO]: code ==>> 期望结果：2003， 实际结果：【 2003 】
+[2026-02-25 16:32:27,463][test_02_register.py 39][INFO]: *************** 结束执行用例 ***************
+[2026-02-25 16:32:27,469][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,470][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,470][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,475][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,475][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,475][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,475][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,476][test_02_register.py 30][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,476][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,476][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,477][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,477][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,477][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,477][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "wintest4",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,477][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,477][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,499][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 0, 
+  "msg": "恭喜，注册成功！"
+}
+
+[2026-02-25 16:32:27,499][test_02_register.py 10][INFO]: 步骤1 ==>> 注册用户 ==>> wintest4, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,511][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,511][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,511][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,516][test_03_login.py 27][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,517][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/login
+[2026-02-25 16:32:27,517][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,517][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+[2026-02-25 16:32:27,517][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,517][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> {
+    "username": "wintest",
+    "password": "123456"
+}
+[2026-02-25 16:32:27,517][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> null
+[2026-02-25 16:32:27,517][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,517][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,537][user.py 99][INFO]: 登录用户 ==>> 返回结果 ==>> {
+  "code": 1003, 
+  "msg": "用户名不存在！！！"
+}
+
+[2026-02-25 16:32:27,538][test_03_login.py 10][INFO]: 步骤1 ==>> 登录用户：wintest
+[2026-02-25 16:32:27,550][test_03_login.py 27][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,550][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/login
+[2026-02-25 16:32:27,550][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,550][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+[2026-02-25 16:32:27,550][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,550][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> {
+    "username": "测试test",
+    "password": "123456"
+}
+[2026-02-25 16:32:27,550][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> null
+[2026-02-25 16:32:27,550][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,550][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,569][user.py 99][INFO]: 登录用户 ==>> 返回结果 ==>> {
+  "code": 1003, 
+  "msg": "用户名不存在！！！"
+}
+
+[2026-02-25 16:32:27,569][test_03_login.py 10][INFO]: 步骤1 ==>> 登录用户：测试test
+[2026-02-25 16:32:27,569][test_03_login.py 33][INFO]: code ==>> 期望结果：1003， 实际结果：【 1003 】
+[2026-02-25 16:32:27,569][test_03_login.py 36][INFO]: *************** 结束执行用例 ***************
+[2026-02-25 16:32:27,576][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/login
+[2026-02-25 16:32:27,577][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,577][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/x-www-form-urlencoded"
+}
+[2026-02-25 16:32:27,577][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,577][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> {
+    "username": "wintest",
+    "password": "123456"
+}
+[2026-02-25 16:32:27,577][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> null
+[2026-02-25 16:32:27,577][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,577][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,597][conftest.py 40][INFO]: 前置步骤 ==>> 管理员 wintest 登录，返回信息 为：123456
+[2026-02-25 16:32:27,598][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,599][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,599][conftest.py 97][INFO]: 修改用户操作：手工修改用户的手机号，以便用例重复执行
+[2026-02-25 16:32:27,599][conftest.py 98][INFO]: 执行SQL：UPDATE user SET telephone = '13500010004' WHERE id = 4
+[2026-02-25 16:32:27,600][test_04_update_user.py 37][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,616][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,617][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,617][conftest.py 97][INFO]: 修改用户操作：手工修改用户的手机号，以便用例重复执行
+[2026-02-25 16:32:27,617][conftest.py 98][INFO]: 执行SQL：UPDATE user SET telephone = '13500010004' WHERE id = 4
+[2026-02-25 16:32:27,617][test_04_update_user.py 37][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,632][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,633][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,633][conftest.py 97][INFO]: 修改用户操作：手工修改用户的手机号，以便用例重复执行
+[2026-02-25 16:32:27,633][conftest.py 98][INFO]: 执行SQL：UPDATE user SET telephone = '13500010004' WHERE id = 4
+[2026-02-25 16:32:27,634][test_04_update_user.py 37][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,653][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,653][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,653][conftest.py 65][INFO]: 删除用户操作：插入新用户--准备用于删除用户
+[2026-02-25 16:32:27,654][conftest.py 66][INFO]: 执行前置SQL：INSERT INTO user(username, password, role, sex, telephone, address) VALUES('测试test', '123456', '1', '1', '13488888888', '北京市海淀区')
+[2026-02-25 16:32:27,654][test_05_delete_user.py 34][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,667][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,667][conftest.py 72][INFO]: 删除用户操作：手工清理处理失败的数据
+[2026-02-25 16:32:27,667][conftest.py 73][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,674][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,674][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,675][conftest.py 65][INFO]: 删除用户操作：插入新用户--准备用于删除用户
+[2026-02-25 16:32:27,675][conftest.py 66][INFO]: 执行前置SQL：INSERT INTO user(username, password, role, sex, telephone, address) VALUES('测试test', '123456', '1', '1', '13488888888', '北京市海淀区')
+[2026-02-25 16:32:27,675][test_05_delete_user.py 34][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,687][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,687][conftest.py 72][INFO]: 删除用户操作：手工清理处理失败的数据
+[2026-02-25 16:32:27,687][conftest.py 73][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,696][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,696][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,696][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,696][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,697][test_01_register_login_list.py 43][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,697][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,697][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,697][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,697][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,697][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,697][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,697][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,697][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,719][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2005, 
+  "msg": "手机号已被注册！！！"
+}
+
+[2026-02-25 16:32:27,719][test_01_register_login_list.py 9][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,729][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,729][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,729][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,736][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,736][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,736][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,737][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,737][test_02_register_login_update.py 54][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,737][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,737][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,737][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,738][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,738][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,738][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,738][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,738][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,758][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2005, 
+  "msg": "手机号已被注册！！！"
+}
+
+[2026-02-25 16:32:27,759][test_02_register_login_update.py 9][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,768][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,768][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,768][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,774][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,774][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,774][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,775][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,775][test_02_register_login_update.py 96][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,775][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,775][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,775][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,775][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,776][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,776][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,776][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,776][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,795][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2005, 
+  "msg": "手机号已被注册！！！"
+}
+
+[2026-02-25 16:32:27,795][test_02_register_login_update.py 9][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,803][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,803][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,803][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,810][test_03_register_login_delete.py 44][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,810][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,810][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,810][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,810][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,810][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,810][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,810][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,810][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,829][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2005, 
+  "msg": "手机号已被注册！！！"
+}
+
+[2026-02-25 16:32:27,830][test_03_register_login_delete.py 9][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,841][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,841][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,841][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,841][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,842][test_03_register_login_delete.py 84][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,842][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,842][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,842][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,842][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,842][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,842][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,842][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,842][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,861][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2005, 
+  "msg": "手机号已被注册！！！"
+}
+
+[2026-02-25 16:32:27,862][test_03_register_login_delete.py 9][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,869][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,869][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,869][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,875][conftest.py 29][INFO]: ******************************
+[2026-02-25 16:32:27,876][conftest.py 30][INFO]: 前置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,876][conftest.py 82][INFO]: 注册用户操作：清理用户--准备注册新用户
+[2026-02-25 16:32:27,876][conftest.py 83][INFO]: 执行前置SQL：DELETE FROM user WHERE username = '测试test'
+[2026-02-25 16:32:27,876][test_04_repeat_register.py 38][INFO]: *************** 开始执行用例 ***************
+[2026-02-25 16:32:27,876][rest_client.py 51][INFO]: 接口请求地址 ==>> http://127.0.0.1:9999/register
+[2026-02-25 16:32:27,876][rest_client.py 52][INFO]: 接口请求方式 ==>> POST
+[2026-02-25 16:32:27,876][rest_client.py 54][INFO]: 接口请求头 ==>> {
+    "Content-Type": "application/json"
+}
+[2026-02-25 16:32:27,876][rest_client.py 55][INFO]: 接口请求 params 参数 ==>> null
+[2026-02-25 16:32:27,876][rest_client.py 56][INFO]: 接口请求体 data 参数 ==>> null
+[2026-02-25 16:32:27,876][rest_client.py 57][INFO]: 接口请求体 json 参数 ==>> {
+    "username": "测试test",
+    "password": "123456",
+    "sex": "1",
+    "telephone": "13599999999",
+    "address": "深圳市宝安区"
+}
+[2026-02-25 16:32:27,877][rest_client.py 58][INFO]: 接口上传附件 files 参数 ==>> None
+[2026-02-25 16:32:27,877][rest_client.py 59][INFO]: 接口 cookies 参数 ==>> null
+[2026-02-25 16:32:27,897][user.py 71][INFO]: 注册用户 ==>> 返回结果 ==>> {
+  "code": 2005, 
+  "msg": "手机号已被注册！！！"
+}
+
+[2026-02-25 16:32:27,897][test_04_repeat_register.py 9][INFO]: 步骤1 ==>> 注册用户 ==>> 测试test, 123456, 13599999999, 1, 深圳市宝安区
+[2026-02-25 16:32:27,906][conftest.py 35][INFO]: 后置步骤开始 ==>> 清理数据
+[2026-02-25 16:32:27,906][conftest.py 87][INFO]: 注册用户操作：删除注册的用户
+[2026-02-25 16:32:27,906][conftest.py 88][INFO]: 执行后置SQL：DELETE FROM user WHERE username = '测试test'

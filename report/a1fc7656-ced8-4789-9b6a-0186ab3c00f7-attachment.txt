@@ -1,0 +1,12 @@
+[32mINFO    [0m log:test_01_get_user_info.py:32 *************** 开始执行用例 ***************
+[32mINFO    [0m log:test_01_get_user_info.py:10 步骤1 ==>> 获取所有用户信息
+[32mINFO    [0m log:rest_client.py:51 接口请求地址 ==>> http://127.0.0.1:9999/users
+[32mINFO    [0m log:rest_client.py:52 接口请求方式 ==>> GET
+[32mINFO    [0m log:rest_client.py:54 接口请求头 ==>> null
+[32mINFO    [0m log:rest_client.py:55 接口请求 params 参数 ==>> null
+[32mINFO    [0m log:rest_client.py:56 接口请求体 data 参数 ==>> null
+[32mINFO    [0m log:rest_client.py:57 接口请求体 json 参数 ==>> null
+[32mINFO    [0m log:rest_client.py:58 接口上传附件 files 参数 ==>> None
+[32mINFO    [0m log:rest_client.py:59 接口 cookies 参数 ==>> null
+[32mINFO    [0m log:test_01_get_user_info.py:38 code ==>> 期望结果：0， 实际结果：0
+[32mINFO    [0m log:test_01_get_user_info.py:41 *************** 结束执行用例 ***************

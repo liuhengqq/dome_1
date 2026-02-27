@@ -1,0 +1,8 @@
+[32mINFO    [0m log:conftest.py:29 ******************************
+[32mINFO    [0m log:conftest.py:30 前置步骤开始 ==>> 清理数据
+[32mINFO    [0m log:conftest.py:65 删除用户操作：插入新用户--准备用于删除用户
+[32mINFO    [0m log:conftest.py:66 执行前置SQL：INSERT INTO user(username, password, role, sex, telephone, address) VALUES('测试test', '123456', '1', '1', '13488888888', '北京市海淀区')
+[32mINFO    [0m log:test_05_delete_user.py:34 *************** 开始执行用例 ***************
+[32mINFO    [0m log:conftest.py:35 后置步骤开始 ==>> 清理数据
+[32mINFO    [0m log:conftest.py:72 删除用户操作：手工清理处理失败的数据
+[32mINFO    [0m log:conftest.py:73 执行后置SQL：DELETE FROM user WHERE username = '测试test'

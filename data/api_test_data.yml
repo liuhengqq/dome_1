@@ -19,7 +19,7 @@ test_register_user:
 test_login_user:
   # 用户名,密码,期望结果,期望返回码,期望返回信息
   # username, password, except_result, except_code, except_msg
-  - ["wintest", "123456", True, 0, "登录成功"]
+  - ["wintest4", "123456", True, 0, "登录成功"]
   - ["测试test", "123456", False, 1003, "用户名不存在"]
 
 test_update_user:

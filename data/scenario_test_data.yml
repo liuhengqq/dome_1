@@ -22,7 +22,7 @@ test_user_register_login_update_success:
   register:
     username: "测试test"
     password: "123456"
-    telephone: "13599999999"
+    telephone: "13599999998"
     sex: "1"
     address: "深圳市宝安区"
   login:

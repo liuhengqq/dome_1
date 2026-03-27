@@ -25,11 +25,12 @@ class TestUserRegister():
     @pytest.mark.single
     @pytest.mark.parametrize("username, password, telephone, sex, address, except_result, except_code, except_msg",
                              api_data["test_register_user"])
-    @pytest.mark.usefixtures("delete_register_user")
+    # @pytest.mark.usefixtures("delete_register_user")
     def test_register_user(self, username, password, telephone, sex, address, except_result, except_code, except_msg):
         logger.info("*************** 开始执行用例 ***************")
         result = register_user(username, password, telephone, sex, address)
         step_1(username, password, telephone, sex, address)
+        logger.info(except_result)
         assert result.success == except_result, result.error
         assert result.response.status_code == 200
         assert result.success == except_result, result.error

@@ -53,7 +53,7 @@ class TestRegLogUpdate():
         except_msg = testcase_data["except_msg"]
         logger.info("*************** 开始执行用例 ***************")
         result = register_user(username, password, telephone, sex, address)
-        step_1(username, password, telephone, sex, address)
+        print(f"用户名{username},密码：{password},电话{telephone},{sex},{address}")
         assert result.success is True, result.error
         result = login_user(admin_user, admin_pwd)
         step_2(admin_user)

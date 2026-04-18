@@ -1,3 +1,4 @@
 
 class ResultBase():
-    pass
+    def __init__(self):
+        self.error = ""

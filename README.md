@@ -61,3 +61,160 @@ allure serve ./report
 ![image.png](https://upload-images.jianshu.io/upload_images/16853007-248f805c82dbf99c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 https://javabetter.cn/sidebar/sanfene/mysql.html#_19-%E8%AF%B4%E8%AF%B4-sql-%E7%9A%84%E8%AF%AD%E6%B3%95%E6%A0%91%E8%A7%A3%E6%9E%90-%E8%A1%A5%E5%85%85
+
+https://python3-cookbook.readthedocs.io/zh-cn/latest/c01/p04_find_largest_or_smallest_n_items.html
+
+
+# 查最大最小的元素
+nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
+def least_nums(nums, n):
+    if n>=len(nums):
+        return sorted(nums)
+    return sorted(nums)[:n]
+
+import heapq
+max_5 = heapq.nlargest(5, nums)
+min_6 = heapq.nsmallest(6, nums)
+
+print(least_nums(nums, 3), max_5, min_6)
+
+# 保留最后N个元素
+from collections import deque
+nums_2 = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
+def search(nums, history):
+    q = deque(maxlen=history)
+    for i in nums:
+        q.append(i)
+    return q
+
+f = search(nums_2, 5)
+print(f)
+#  怎样实现一个按优先级排序的队列？ 并且在这个队列上面每次 pop 操作总是返回优先级最高的那个元素
+import heapq
+class PriorityQueue:
+    def __init__(self):
+        self._queu = []
+        self._index = 0
+    def push(self, item, priority):
+        """
+        添加元素，元素越小等级越高
+        """
+        heapq.heappush(
+            self._queu,
+            (priority, self._index, item)
+        )
+        self._index +=1
+    
+    def pop(self):
+        """
+        返回优先级最高的元素
+        """
+        return heapq.heappop(self._queu)[-1]
+
+pq = PriorityQueue()
+
+tasks = [
+    ("打印任务", 3),
+    ("紧急报警", 1),
+    ("后台同步", 5),
+    ("用户请求", 2)
+]
+
+for task, p in tasks:
+    pq.push(task, p)
+
+while pq._queu:
+    print(pq.pop())
+
+# 怎样实现一个键对应多个值的字典（也叫 multidict）？
+
+from collections import defaultdict
+
+def multidict(pairs):
+    d = defaultdict(list)
+    for key, value in pairs:
+        d[key].append(value)
+    return d
+pairs = [
+    ('a', 1),
+    ('a', 2),
+    ('a', 3),
+    ('b', 4),
+    ('b', 5)
+]
+c = multidict(pairs)
+print(c)
+
+# 你想创建一个字典，并且在迭代或序列化这个字典的时候能够控制元素的顺序。
+from collections import OrderedDict
+import json
+def OrderedDict_1(pairs):
+    d = OrderedDict()
+    for key, value in pairs:
+        d[key] = value
+    return json.dumps(d)
+pairs_2 = [
+    ('a', 1),
+    ('a', 2),
+    ('b', 4),
+    ('b', 5),
+    ('a', 3)
+]
+print(OrderedDict_1(pairs_2))
+
+# 怎样在数据字典中执行一些计算操作（比如求最小值、最大值、排序等等）？
+def prices_max(pairs):
+    return max(zip(pairs.values(), pairs.keys()))
+def prices_min(pairs):
+    return min(zip(pairs.values(), pairs.keys()))
+def prices_sorted(pairs):
+    return sorted(zip(pairs.values(), pairs.keys()))
+
+prices_3 = {
+    'ACME': 45.23,
+    'AAPL': 612.78,
+    'IBM': 205.55,
+    'HPQ': 37.20,
+    'FB': 10.75
+}
+
+print(f"最大：{prices_max(prices_3)}，最小{prices_min(prices_3),}，排序{ prices_sorted(prices_3)}")
+
+# 怎样在两个字典中寻寻找相同点（比如相同的键、相同的值等等）？
+def same_dic(dict1, dict2):
+    same_keys = dict1.keys() & dict2.keys()
+
+    same_values = set(dict1.values()) & set(dict2.values())
+
+    same_items = dict1.items() & dict2.items()
+
+    return {
+        "same_keys": same_keys,
+        "same_values": same_values,
+        "same_items": same_items
+    }
+a = {
+    "x": 1,
+    "y": 2,
+    "z": 3
+}
+
+b = {
+    "w": 10,
+    "x": 1,
+    "y": 20
+}
+
+print(same_dic(a, b))
+
+# 怎样在一个序列上面保持元素顺序的同时消除重复的值？
+def dedupe(items):
+    senn = set()
+    for item in items:
+        if item not in senn:
+            yield item
+            senn.add(item)
+
+nums = [1,5,2,1,9,1,5]
+
+print(list(dedupe(nums)))

@@ -162,3 +162,30 @@ def delete_user(username, admin_user, token):
     result.response = res
     logger.info("删除用户 ==>> 返回结果 ==>> {}".format(result.response.text))
     return result
+
+def create_order(product_name, amount, Idempotency_Key):
+    """
+    根据唯一Idempotency_Key,创建订单
+    product_name：产品名称，
+    amount：数量
+    Idempotency_Key：唯一ID
+    """
+    result = ResultBase()
+    json_data = {
+        "product_name": product_name,
+        "amount":amount
+    }
+    header = {
+        "Content-Type": "application/json",
+        "Idempotency-Key": Idempotency_Key
+    }
+    res = user.create_order(json=json_data, headers=header)
+    result.success = False
+    if res.json()["code"] == 200:
+        result.success = True
+    else:
+        result.error = "接口返回码是 【 {} 】, 返回信息：{} ".format(res.json()["code"], res.json()["msg"])
+    result.msg = res.json()["msg"]
+    result.response = res
+    logger.info("删除用户 ==>> 返回结果 ==>> {}".format(result.response.text))
+    return result

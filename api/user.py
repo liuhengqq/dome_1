@@ -29,6 +29,9 @@ class User(RestClient):
 
     def delete(self, name, **kwargs):
         return self.post("/delete/user/{}".format(name), **kwargs)
+    
+    def create_order(self, **kwargs):
+        return self.post("/create_order", **kwargs)
 
 
 user = User(api_root_url)

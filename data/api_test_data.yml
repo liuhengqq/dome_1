@@ -34,3 +34,10 @@ test_delete_user:
   # username, except_result, except_code, except_msg
   - ["wintest4", True, 0, "删除用户信息成功"]
   # - ["wintest3", False, 3006, "该用户不允许删除"]
+
+test_create_order:
+  #创建订单信息
+  # idem_key, product_name, amount, except_msg, except_code
+  - ["order-005","3D打印机", "30",  "订单创建成功", 200]
+  #创建重复的订单
+  - ["order-005","3D打印机", "30",  "重复请求", 200]

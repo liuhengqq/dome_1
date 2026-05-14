@@ -38,6 +38,6 @@ test_delete_user:
 test_create_order:
   #创建订单信息
   # idem_key, product_name, amount, except_msg, except_code
-  - ["order-005","3D打印机", "30",  "订单创建成功", 200]
+  - ["order-006","3D打印机", "30",  "订单创建成功", 200]
   #创建重复的订单
-  - ["order-005","3D打印机", "30",  "重复请求", 200]
+  - ["order-006","3D打印机", "30",  "重复请求", 200]

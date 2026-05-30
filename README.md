@@ -1,3 +1,4 @@
+
 # pytestDemo
 
 本项目实现接口自动化的技术选型：**Python+Requests+Pytest+YAML+Allure** ，主要是针对本人的一个接口项目来开展的，通过 Python+Requests 来发送和处理HTTP协议的请求接口，使用 Pytest 作为测试执行器，使用 YAML 来管理测试数据，使用 Allure 来生成测试报告。
@@ -218,3 +219,285 @@ def dedupe(items):
 nums = [1,5,2,1,9,1,5]
 
 print(list(dedupe(nums)))
+
+
+
+
+
+
+
+
+import yaml
+from appium import webdriver
+from appium.options.android import UiAutomator2Options
+
+class Devices:
+    def __init__(self):
+          self.devices = self.read_devices_config()
+          #元素
+          with open("D:/App_dome/data/locator.yaml", "r", encoding="utf-8") as f:
+               self.locator_data = yaml.safe_load(f)
+          #用例
+          with open("D:/App_dome/data/test_devices_case.yaml", "r", encoding="utf-8") as f:
+               self.case_data = yaml.safe_load(f)    
+
+    @staticmethod
+    def read_devices_config():
+         with open("D:/App_dome/data/devices_config.yaml", "r", encoding="utf-8") as f:
+              return yaml.safe_load(f)["devices"]
+    
+    def get_locator(self, page, element):
+        """
+        从 locator.yaml 获取定位信息
+        """
+        locator = self.locator_data[page][element]
+        return locator["by"], locator["value"]
+
+    def get_case(self, case_name):
+        """
+        获取测试用例
+        """
+        return self.case_data[case_name]
+
+    def get_case_steps(self, case_name):
+        """
+        获取步骤并自动关联 locator
+        """
+        case = self.case_data[case_name]
+        page = case["page"]
+        result = []
+        for step in case["steps"]:
+            locator = self.get_locator(
+                page,
+                step["element"]
+            )
+            result.append({
+                "action": step["action"],
+                "locator": locator
+            })
+        return result
+    
+    def get_devices(self, devices_name):
+        device = self.devices[devices_name]
+        options = UiAutomator2Options()
+        options.platform_name = device["platformName"]
+        options.device_name = device["deviceName"]
+        options.udid = device["udid"]
+        options.system_port = int(device["systemPort"])  # 转换为整数
+        options.app_package = device["appPackage"]
+        options.app_activity = device["appActivity"]
+        options.no_reset = True
+        driver = webdriver.Remote(
+            "http://127.0.0.1:4723",
+            options=options
+        )
+        return driver
+
+txt = Devices()
+
+steps = txt.get_case_steps(
+    "test_get_Device_status"
+)
+
+for step in steps:
+    print(step)
+
+
+
+
+
+import logging
+import os
+from logging.handlers import RotatingFileHandler
+from datetime import datetime
+
+
+class Logger:
+
+    _logger = None
+
+    @classmethod
+    def get_logger(cls):
+
+        if cls._logger:
+            return cls._logger
+
+        # 创建 logger
+        logger = logging.getLogger("AutomationTest")
+
+        # 日志等级
+        logger.setLevel(logging.INFO)
+
+        # 防止重复打印
+        logger.propagate = False
+
+        # 防止重复添加 handler
+        if not logger.handlers:
+
+            # 创建 logs 目录
+            log_dir = "logs"
+
+            if not os.path.exists(log_dir):
+                os.makedirs(log_dir)
+
+            # 日志文件名
+            log_file = os.path.join(
+                log_dir,
+                f"{datetime.now().strftime('%Y-%m-%d')}.log"
+            )
+
+            # 日志格式
+            formatter = logging.Formatter(
+                "%(asctime)s | %(levelname)s | %(filename)s:%(lineno)d | %(message)s"
+            )
+
+            # 控制台输出
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(logging.INFO)
+            console_handler.setFormatter(formatter)
+
+            # 文件输出
+            file_handler = RotatingFileHandler(
+                log_file,
+                maxBytes=5 * 1024 * 1024,   # 5MB
+                backupCount=5,
+                encoding="utf-8"
+            )
+
+            file_handler.setLevel(logging.INFO)
+            file_handler.setFormatter(formatter)
+
+            # 添加 handler
+            logger.addHandler(console_handler)
+            logger.addHandler(file_handler)
+
+        cls._logger = logger
+
+        return logger
+
+
+
+import paho.mqtt.client as mqtt
+import yaml
+
+
+def read_mqttconfig():
+    with open("D:/App_dome/data/mqtt_config.yaml", "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)["Mqtt"]
+
+
+config = read_mqttconfig()
+
+BROKER = config["BROKER"]
+PORT = int(config["PORT"])   # ⭐关键：转 int
+USERNAME = config["USERNAME"]
+PASSWORD = config["PASSWORD"]
+TOPIC = config["TOPIC"]
+
+TOPIC_DOWN = f"{TOPIC}/down"
+TOPIC_UP = f"{TOPIC}/up"
+
+print(TOPIC_DOWN, TOPIC_UP)
+
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("连接成功")
+
+        client.subscribe(TOPIC_UP)
+        client.subscribe(TOPIC_DOWN)
+
+        print("订阅:", TOPIC_UP)
+        print("订阅:", TOPIC_DOWN)
+
+def on_message(client, userdata, msg):
+    payload = msg.payload.decode("utf-8")
+    if msg.topic == TOPIC_DOWN:
+        print("down消息：")
+        print(payload)
+    elif msg.topic == TOPIC_UP:
+        print("up消息：")
+        print(payload)
+
+client = mqtt.Client()
+client.username_pw_set(USERNAME, PASSWORD)
+
+client.on_connect = on_connect
+client.on_message = on_message
+
+client.connect(BROKER, PORT, 60)
+
+client.loop_forever()
+
+
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from appium.webdriver.webelement import WebElement
+from common.logger import Logger
+
+class BasePage:
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    # 获取元素
+    def find_element(self, locator, timeout=10):
+        """
+        等待元素出现
+        :param locator: (By.ID, "xxx")
+        :param timeout:
+        :return:
+        """
+        try:
+            element = WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located(locator)
+            )
+            return element
+        except TimeoutError:
+            raise Exception(f"元素等待超时：{locator}")
+    
+    # 元素点击
+    def element_click(self, locator):
+        self.find_element(locator).click()
+
+
+
+from pages.BasePage import BasePage
+from selenium.webdriver.common.by import By
+class Devices(BasePage):
+
+    device_btn = (By.XPATH, '//*[@content-desc="设备"]')
+    def click(self):
+        self.element_click(self.device_btn)
+
+
+
+
+import pytest
+from common.read_data import Devices
+
+@pytest.fixture(params=["devices1"])
+def driver(request):
+    decices_name = request.param
+    devices = Devices()  # 创建实例
+    driver = devices.get_devices(decices_name)
+    yield driver
+    driver.quit()
+
+
+
+import time
+from pages.devices_page import Devices
+
+
+class Testdevices:
+
+    def test_login_success(self, driver):
+        drivers = Devices(driver)
+        drivers.click()
+
+
+[pytest]
+pythonpath = .

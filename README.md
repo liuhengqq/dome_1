@@ -505,3 +505,94 @@ pythonpath = .
 
 
 https://github.com/hantmac/Python-Interview-Customs-Collection
+
+1.掌握接口理论知识及运行原理
+	理解接口（API）的基本概念、作用以及客户端与服务端的数据交互流程；
+	掌握常见接口通信协议：
+	HTTP / HTTPS 协议
+	RESTful API 规范
+	WebSocket 长连接通信
+	MQTT 发布/订阅通信模型
+	熟悉接口请求执行流程：
+	客户端(Client)
+		  |
+		  | 发送 Request
+		  |
+		  v
+	服务端(Server)
+		  |
+		  | 业务处理、数据库操作
+		  |
+		  v
+	返回 Response
+	熟悉 HTTP 请求组成：
+	请求地址 URL
+	请求方法 Method（GET、POST、PUT、DELETE）
+	请求头 Headers
+	请求参数 Params
+	请求体 Body
+	掌握接口响应内容分析：
+	HTTP 状态码
+	200 请求成功
+	400 参数错误
+	401 未认证
+	403 权限不足
+	404 接口不存在
+	500 服务端异常
+	响应数据格式：
+	JSON
+	XML
+	理解接口认证机制：
+	Cookie / Session
+	Token
+	JWT
+	OAuth
+	掌握接口测试核心验证点：
+	接口功能正确性
+	参数校验
+	返回数据校验
+	异常场景测试
+	权限测试
+	安全测试
+	性能测试
+	熟悉接口测试工具：
+	Postman
+	JMeter
+	pytest + requests
+	Swagger
+	能够根据接口文档分析业务逻辑，设计接口测试用例，并完成接口自动化测试。
+
+2.掌握HTTP网络协议及Restful规范
+	HTTP 是客户端和服务端通信的基础协议，接口请求由请求行、请求头、请求参数组成，服务端返回响应状态码和数据。RESTful 是一种接口设计规范，
+	通过 URL 表示资源，通过 GET、POST、PUT、DELETE 等 HTTP 方法表示增删改查操作。我在接口测试中会根据接口文档校验请求参数、响应数据、状态码、权限以及异常场景
+
+3.Requests库基本应用及Request库源码讲解
+	Requests 是 Python 中用于发送 HTTP 请求的第三方库。在接口自动化测试中，我通常使用 requests 模拟客户端调用接口，通过 GET、POST 等方法发送请求，
+	使用 Response 对象获取状态码、响应数据和响应时间，并结合 pytest 进行断言。
+	源码层面 requests.get 最终会进入 Session 对象处理请求，通过 HTTPAdapter 调用 urllib3 完成底层网络通信。
+	
+
+4.掌握Json库应用
+
+5.掌握JsonPath提取Json格式数据操作行为
+
+6.掌握接口自动化测试框架的底层设计封装与优化，实现单接口与接口业务链路的自动化测试
+
+7.基于pytest实现接口测试框架用例管理
+
+8.基于Pytest实现接口测试用例管理及Fixture配置
+	在接口自动化中，我使用 Pytest 管理测试用例，通过测试类和模块划分业务场景，
+	使用 pytest.ini 统一管理运行规则。Fixture 用于实现测试前置和后置处理，例如环境初始化、数据库连接、登录获取 Token 等。
+	根据资源生命周期选择 function、class、module、session 等作用域，并结合参数化实现多数据场景测试。
+	Pytest Fixture 通过 yield 实现前置和后置处理，yield 前执行初始化操作，比如环境准备、登录获取 Token、数据库连接；yield 后执行清理操作，
+	比如关闭连接、删除测试数据。通过 scope 控制生命周期，例如 function 每个用例执行，session 整个测试任务执行一次。
+
+9.结合数据驱动Yaml/Excel/Mysql实现接口测试数据管理
+
+9.基于配置项实现对项目环境一键切换
+
+10.掌握Flask下的Mock Server技术应用
+
+11.掌握Faker实现测试数据自动生成
+
+12.掌握单向/双向数据加密原理与代码逻辑设计实现
